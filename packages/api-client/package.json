@@ -1,0 +1,25 @@
+{
+  "name": "@repo/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/config": "*",
+    "@repo/types": "*",
+    "@supabase/supabase-js": "^2.49.0",
+    "@tanstack/react-query": "^5.75.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "@types/react": "^19.2.0",
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}
