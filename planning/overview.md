@@ -1,73 +1,121 @@
-# Masah Project Overview
+Project Overview (LLM Agent Context)
+1) What this product is
 
-Masah is a multi-tenant SaaS application designed to help surveying companies manage their daily operations, workforce, equipment, and projects efficiently. The platform acts as a central hub for company owners to track field work, monitor expenses, and manage client relationships.
+This application is a multi-tenant SaaS for surveying companies to manage their day-to-day operations in a structured, trackable way instead of relying on spreadsheets/WhatsApp.
 
-## 🎯 Project Goals
+It is designed for a company owner (or admin) to:
 
-- **Streamline Operations**: Replace manual tracking with a digital system for managing daily surveying tasks.
-- **Resource Management**: meaningful tracking of equipment (owned and rented) and workforce allocation.
-- **Financial Clarity**: Real-time visibility into project costs (worker salaries, equipment rent, expenses) vs. revenue.
-- **Scalability**: A robust multi-tenant architecture allowing multiple surveying companies to use the platform independently.
+set up their company once,
 
-## 👥 Target Audience
+manage resources (people + equipment),
 
-### Primary Users (Phase 1)
-- **Company Owners**: Create the tenant, manage settings, add resources (workers/equipment), create projects, and view financial reports.
+manage customers,
 
-### Future Users (Phase 2+)
-- **Managers/Employees**: Staff members who help manage operations.
-- **Field Workers**: Surveyors and assistants who may eventually input data directly from the field.
+plan/record daily surveying work,
 
-## 🚀 Key Features
+and keep everything organized under their company account.
 
-### 1. Multi-Tenancy & Authentication
-- **Tenant Isolation**: Each company has its own isolated data environment.
-- **Owner Onboarding**: Seamless signup process that creates a company profile.
-- **Role-Based Access**: Currently focused on Owner role, prepared for future roles.
+2) Who uses it
 
-### 2. Resource Management
-- **Equipment Inventory**:
-  - Track owned vs. rented equipment
-  - Manage equipment types (Total Station, GPS, Level, Laserscanner, etc.)
-  - Track calibration dates (last & next due)
-  - Ownership tracking (Company owned, Partner owned with percentage split)
-  - Rental management (Suppliers, daily/monthly rates)
-- **Workforce Management**:
-  - Employee profiles (Engineers, Surveyors, Assistants)
-  - Skill tagging (e.g., "GPS Expert", "AutoCAD") with proficiency ratings (1-5)
-  - Compensation management (Daily/Monthly salaries)
+Primary user persona:
 
-### 3. Client & Project Management
-- **Customer Database**: Manage client details and multiple contact persons.
-- **Site Management**: Track specific work locations/sites for each customer.
-- **Project Structure**: Flexible organization of work orders.
+Company Owner / Admin of a surveying company.
 
-### 4. Daily Work Tracking (Core Workflow)
-The heart of the application is the "Daily Work" record, which connects all entities:
-- **Assignment**: Link Customers, Sites, Workers, and Equipment to a specific date/duration.
-- **Cost Calculation**: Automatically calculate costs based on:
-  - Worker daily rates
-  - Equipment daily rental/usage rates
-  - Additional expenses (transport, food, etc.)
-- **Revenue Tracking**: Record payments received from customers.
-- **Profitability Analysis**: immediate view of cost vs. revenue for each job.
+They register/login using:
 
-## 🗺 Roadmap
+email + password
 
-### Phase 1: Foundation (MVP)
-- [x] Database Schema Design
-- [x] AI Agent Constraints & Architecture Standards
-- [ ] Backend Setup with Supabase
-- [ ] Admin Dashboard (React + MUI) for Owners
-- [ ] Basic CROD operations for all entities
-- [ ] Daily Work creation and simple cost reporting
+phone
+During onboarding, they must also provide:
 
-### Phase 2: Enhanced Management
-- [ ] Advanced Reporting & Dashboards
-- [ ] Employee/Manager Roles
-- [ ] Document Generation (invoices, work orders)
+company name (creates a Company record)
 
-### Phase 3: Field Operations
-- [ ] Mobile App for field workers
-- [ ] GPS integration for site location
-- [ ] Field data collection
+3) Multi-tenant model (core rule)
+
+This is a B2B multi-tenant system.
+
+Each user belongs to one company (at least initially).
+
+Every major entity is scoped by company.
+
+CompanyId is the top-level foreign key that must exist on all business entities (directly or indirectly).
+
+Users must never access or see data belonging to another company.
+
+4) Core entities (current scope)
+
+These are the main domain objects:
+
+Company
+
+Created at registration (from company name).
+
+Parent scope for everything else.
+
+Workers
+
+Employees/crew members used to execute daily jobs (surveyors, assistants, drivers, etc.)
+
+Assigned to daily work.
+
+Equipment
+
+Surveying devices and tools owned/used by the company (e.g., total station, GPS, levels).
+
+Assigned to daily work.
+
+Customers
+
+Clients who request work.
+
+Can have contact info and related work history.
+
+Daily Work (Main Workflow Entity)
+
+The core operational record of what the company will do / did on a specific day.
+
+Typically links:
+
+customer(s)
+
+worker(s)
+
+equipment
+
+date/time
+
+location/notes/status
+
+This is the primary object for tracking execution and productivity.
+
+5) Product goals
+
+Make daily operations easy to plan, assign, and track
+
+Keep company data centralized and searchable
+
+Reduce admin overhead for the owner
+
+Provide a foundation for future features like reporting, invoicing, approvals, attachments, offline mobile, etc.
+
+6) Non-goals (for now)
+
+Unless explicitly stated in a task, assume we are not building:
+
+complex accounting/invoicing
+
+payroll
+
+full CRM pipelines
+
+advanced GIS processing
+
+7) Key assumptions for tasks
+
+When implementing or designing any feature:
+
+Always include company scoping (companyId filtering, authorization checks).
+
+The “owner” is the primary actor, and has permission to CRUD most entities.
+
+Daily Work is the hub that connects workers/equipment/customers.
