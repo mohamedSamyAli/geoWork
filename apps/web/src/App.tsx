@@ -1,31 +1,27 @@
-import { usePingQuery } from "@repo/api-client";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ProtectedRoute, GuestRoute } from "@/components/auth-guard";
+import LoginPage from "@/pages/login";
+import RegisterPage from "@/pages/register";
+import HomePage from "@/pages/home";
 
-function App() {
-  const { data, isLoading, error } = usePingQuery();
-
+export default function App() {
   return (
-    <div style={{ padding: 32, fontFamily: "system-ui, sans-serif" }}>
-      <h1>geoWorks Web</h1>
-      <h2>Supabase Ping Test</h2>
+    <BrowserRouter>
+      <Routes>
+        {/* Guest-only routes (redirect to /home if already authenticated) */}
+        <Route element={<GuestRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
 
-      {isLoading && <p>Pinging Supabase...</p>}
-      {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
-      {data && (
-        <pre
-          style={{
-            textAlign: "left",
-            background: "#f4f4f4",
-            padding: 16,
-            borderRadius: 8,
-            overflow: "auto",
-          }}
-        >
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      )}
-    </div>
+        {/* Protected routes (redirect to /login if not authenticated) */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<HomePage />} />
+        </Route>
+
+        {/* Catch-all: redirect to /home (ProtectedRoute will bounce to /login if needed) */}
+        <Route path="*" element={<Navigate to="/home" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

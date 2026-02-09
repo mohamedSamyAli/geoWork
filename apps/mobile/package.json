@@ -11,6 +11,7 @@
     "lint": "expo lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@repo/api-client": "*",
     "@tanstack/react-query": "^5.75.0",
     "@expo/vector-icons": "^15.0.3",
@@ -30,6 +31,7 @@
     "expo-system-ui": "~6.0.9",
     "expo-web-browser": "~15.0.10",
     "react": "19.1.0",
+    "react-hook-form": "^7.56.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",

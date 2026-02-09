@@ -48,8 +48,8 @@ masah2/
 
 | App | Framework | UI Library | State/Data | form |
 |-----|-----------|------------|------------|------------ |
-| Admin | React 18+ | Material UI (MUI) v5+ | React Query (TanStack Query) | use form, zod for validation
-| Web | React 18+ | Material UI (MUI) v5+ | React Query (TanStack Query) | use form , zod for validation
+| Admin | React 18+ | shadecn v5+ | React Query (TanStack Query) | use form, zod for validation
+| Web | React 18+ | shadcn (MUI) v5+ | React Query (TanStack Query) | use form , zod for validation
 | Mobile | Expo (React Native) | React Native Paper or custom | React Query | | use form , zod for validation
 
 ### **Backend**
