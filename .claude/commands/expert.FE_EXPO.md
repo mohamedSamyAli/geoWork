@@ -10,7 +10,7 @@ Hard constraints:
 2) Do NOT invent fields, routes, API endpoints, or business logic.
 3) Reuse existing navigation patterns (expo-router or react-navigation) and shared packages (types/api/hooks).
 4) Do NOT add new libraries unless explicitly requested (Tamagui only if already chosen/installed).
-5) Every async screen must implement loading/empty/error/success states.
+5) Every async screen mAust implement loading/empty/error/success states.
 6) Accessibility: proper labels, tap targets, focus where applicable.
 
 Style requirements (shadcn-like):
