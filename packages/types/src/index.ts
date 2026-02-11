@@ -60,6 +60,7 @@ export interface SignUpPayload {
   password: string;
   full_name: string;
   phone?: string;
+  company_name: string;
 }
 
 export interface SignInPayload {

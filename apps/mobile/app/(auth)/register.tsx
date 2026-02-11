@@ -14,20 +14,11 @@ import { Link } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  useSignUpMutation,
-  useOnboardingMutation,
-  signUpSchema,
-  createCompanySchema,
-} from '@repo/api-client';
+import { useSignUpMutation, signUpSchema } from '@repo/api-client';
 import type { SignUpPayload } from '@repo/types';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
-const registerSchema = signUpSchema.extend({
-  company_name: createCompanySchema.shape.name,
-});
-
-type RegisterForm = SignUpPayload & { company_name: string };
+type RegisterForm = SignUpPayload;
 
 export default function RegisterScreen() {
   const [serverError, setServerError] = useState('');
@@ -37,7 +28,7 @@ export default function RegisterScreen() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterForm>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       full_name: '',
       email: '',
@@ -48,10 +39,9 @@ export default function RegisterScreen() {
   });
 
   const signUp = useSignUpMutation();
-  const onboard = useOnboardingMutation();
   const insets = useSafeAreaInsets();
 
-  const isLoading = signUp.isPending || onboard.isPending;
+  const isLoading = signUp.isPending;
 
   const backgroundColor = useThemeColor({}, 'background');
   const textColor = useThemeColor({}, 'text');
@@ -64,26 +54,16 @@ export default function RegisterScreen() {
     setServerError('');
 
     try {
-      // Step 1: Create account
-      const authResult = await signUp.mutateAsync({
+      const result = await signUp.mutateAsync({
         email: data.email,
         password: data.password,
         full_name: data.full_name,
         phone: data.phone || undefined,
+        company_name: data.company_name,
       });
 
-      if (authResult.error) {
-        setServerError(authResult.error.message);
-        return;
-      }
-
-      // Step 2: Create company (onboarding)
-      const companyResult = await onboard.mutateAsync({
-        name: data.company_name,
-      });
-
-      if (companyResult.error) {
-        setServerError(companyResult.error.message);
+      if (result.error) {
+        setServerError(result.error.message);
         return;
       }
 

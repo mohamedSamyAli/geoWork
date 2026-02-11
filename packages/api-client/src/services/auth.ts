@@ -12,7 +12,7 @@ export const authService = {
   /**
    * Register a new user.
    * Supabase Auth creates the auth.users row; the DB trigger auto-creates
-   * the profiles row from raw_user_meta_data.
+   * the profile, company, and owner membership from raw_user_meta_data.
    */
   async signUp(payload: SignUpPayload): Promise<Result<{ userId: string }>> {
     try {
@@ -26,6 +26,7 @@ export const authService = {
           data: {
             full_name: parsed.full_name,
             phone: parsed.phone ?? "",
+            company_name: parsed.company_name,
           },
         },
       });

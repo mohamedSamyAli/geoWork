@@ -3,12 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {
-  signUpSchema,
-  createCompanySchema,
-  useSignUpMutation,
-  useOnboardingMutation,
-} from "@repo/api-client";
+import { signUpSchema, useSignUpMutation } from "@repo/api-client";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,48 +18,44 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const registerSchema = signUpSchema.merge(createCompanySchema);
-type RegisterFormValues = z.infer<typeof registerSchema>;
+type RegisterFormValues = z.infer<typeof signUpSchema>;
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const signUp = useSignUpMutation();
-  const onboard = useOnboardingMutation();
   const [apiError, setApiError] = useState<string | null>(null);
-
-  const isPending = signUp.isPending || onboard.isPending;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(signUpSchema),
   });
 
   async function onSubmit(values: RegisterFormValues) {
     setApiError(null);
 
-    // Step 1: Create account
-    const authResult = await signUp.mutateAsync({
-      email: values.email,
-      password: values.password,
-      full_name: values.full_name,
-      phone: values.phone || undefined,
-    });
-    if (authResult.error) {
-      setApiError(authResult.error.message);
-      return;
-    }
+    try {
+      const result = await signUp.mutateAsync({
+        email: values.email,
+        password: values.password,
+        full_name: values.full_name,
+        phone: values.phone || undefined,
+        company_name: values.company_name,
+      });
 
-    // Step 2: Create company (onboarding)
-    const companyResult = await onboard.mutateAsync({ name: values.name });
-    if (companyResult.error) {
-      setApiError(companyResult.error.message);
-      return;
-    }
+      if (result.error) {
+        setApiError(result.error.message);
+        return;
+      }
 
-    navigate("/home", { replace: true });
+      navigate("/home", { replace: true });
+    } catch (err) {
+      setApiError(
+        err instanceof Error ? err.message : "Something went wrong",
+      );
+    }
   }
 
   return (
@@ -168,26 +159,26 @@ export default function RegisterPage() {
                 id="company_name"
                 className="h-9"
                 placeholder="Acme Surveying Ltd"
-                {...register("name")}
+                {...register("company_name")}
               />
-              {errors.name && (
+              {errors.company_name && (
                 <p className="text-xs text-destructive">
-                  {errors.name.message}
+                  {errors.company_name.message}
                 </p>
               )}
             </div>
           </CardContent>
 
           <CardFooter className="flex flex-col gap-3">
-            <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending && (
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={signUp.isPending}
+            >
+              {signUp.isPending && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
-              {signUp.isPending
-                ? "Creating account..."
-                : onboard.isPending
-                  ? "Setting up company..."
-                  : "Create account"}
+              {signUp.isPending ? "Creating account..." : "Create account"}
             </Button>
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
