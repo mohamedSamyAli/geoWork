@@ -72,6 +72,29 @@ export {
   useDeletePartnerMutation,
 } from "./hooks/use-partner";
 
+// ---- Workers --------------------------------------------------------------
+export { workerService } from "./services/worker";
+export {
+  useWorkerList,
+  useWorkerDetail,
+  useCreateWorkerMutation,
+  useUpdateWorkerMutation,
+  useArchiveWorkerMutation,
+  useReactivateWorkerMutation,
+  useWorkerEquipmentSkills,
+  useAddWorkerEquipmentSkillMutation,
+  useUpdateWorkerEquipmentSkillMutation,
+  useRemoveWorkerEquipmentSkillMutation,
+  useWorkerSoftwareSkills,
+  useAddWorkerSoftwareSkillMutation,
+  useRemoveWorkerSoftwareSkillMutation,
+  useSoftwareList,
+  useCreateSoftwareMutation,
+  useEquipmentBrands,
+  useCreateEquipmentBrandMutation,
+  useEquipmentTypesList,
+} from "./hooks/use-worker";
+
 // ---- Schemas (for use in form validation) ---------------------------------
 export { signUpSchema, signInSchema, updateProfileSchema, resetPasswordSchema } from "./schemas/auth";
 export { createCompanySchema } from "./schemas/company";
@@ -81,6 +104,22 @@ export { createSupplierSchema, updateSupplierSchema } from "./schemas/supplier";
 export type { CreateSupplierFormData, UpdateSupplierFormData } from "./schemas/supplier";
 export { createPartnerSchema, updatePartnerSchema } from "./schemas/partner";
 export type { CreatePartnerFormData, UpdatePartnerFormData } from "./schemas/partner";
+export {
+  createWorkerSchema,
+  updateWorkerSchema,
+  addWorkerEquipmentSkillSchema,
+  updateWorkerEquipmentSkillSchema,
+  createSoftwareSchema,
+  createEquipmentBrandSchema,
+} from "./schemas/worker";
+export type {
+  CreateWorkerFormData,
+  UpdateWorkerFormData,
+  AddWorkerEquipmentSkillFormData,
+  UpdateWorkerEquipmentSkillFormData,
+  CreateSoftwareFormData,
+  CreateEquipmentBrandFormData,
+} from "./schemas/worker";
 
 // ---- Legacy / utility -----------------------------------------------------
 export { usePingQuery } from "./hooks/use-ping-query";
