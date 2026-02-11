@@ -11,7 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/geoWorks/",
+  base: "/geoWork/",
   build: {
     outDir: "dist",
     emptyOutDir: true,

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:gh": "tsc -b && vite build --base=/geoWorks/",
+    "build:gh": "tsc -b && vite build --base=/geoWork/",
     "lint": "eslint .",
     "preview": "vite preview"
   },
