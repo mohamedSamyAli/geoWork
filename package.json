@@ -3,12 +3,14 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:gh": "cd apps/web && npm run build:gh && cd ../.. && npx copyfiles -f apps/web/dist/**/* .",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "prettier": "^3.7.4",
     "turbo": "^2.8.3",
     "typescript": "5.9.2"
@@ -22,7 +24,7 @@
     "packages/*"
   ],
   "overrides": {
-   "react": "19.1.0",
+    "react": "19.1.0",
     "react-dom": "19.1.0"
   }
 }
