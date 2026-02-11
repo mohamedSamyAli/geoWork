@@ -13,9 +13,6 @@
       "Bash(ls:*)",
       "Bash(npm run check-types:*)",
       "Bash(npx turbo run build:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
       "Bash(npm run build:gh:*)"
     ]
   }

@@ -13,7 +13,7 @@ export default defineConfig({
   },
   base: "/geoWork/",
   build: {
-    outDir: "../../dist",
+    outDir: "dist",
     emptyOutDir: true,
   },
 });
