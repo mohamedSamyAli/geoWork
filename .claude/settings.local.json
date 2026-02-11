@@ -9,7 +9,10 @@
       "Bash(npm run dev:*)",
       "Bash(npm run type-check:*)",
       "Bash(powershell -ExecutionPolicy Bypass -File:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(ls:*)",
+      "Bash(npm run check-types:*)",
+      "Bash(npx turbo run build:*)"
     ]
   }
 }

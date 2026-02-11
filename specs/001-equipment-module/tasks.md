@@ -29,7 +29,7 @@
 
 **Agent**: expert.BE
 
-- [ ] T001 Add equipment module types (OwnershipType, EquipmentStatus enums; EquipmentType, Supplier, Partner, Equipment, EquipmentPartner interfaces; all DTO/payload types; composite types EquipmentWithType, EquipmentWithDetails, EquipmentPartnerWithDetails, SupplierWithEquipmentCount, PartnerWithEquipmentCount, LinkedEquipment, CreateEquipmentTypePayload) to packages/types/src/index.ts per contracts/types.ts
+- [x] T001 Add equipment module types (OwnershipType, EquipmentStatus enums; EquipmentType, Supplier, Partner, Equipment, EquipmentPartner interfaces; all DTO/payload types; composite types EquipmentWithType, EquipmentWithDetails, EquipmentPartnerWithDetails, SupplierWithEquipmentCount, PartnerWithEquipmentCount, LinkedEquipment, CreateEquipmentTypePayload) to packages/types/src/index.ts per contracts/types.ts
 
 ---
 
@@ -41,9 +41,9 @@
 
 **Agent**: expert.db
 
-- [ ] T002 Create schema migration with enums (ownership_type, equipment_status), tables (equipment_types, suppliers, partners, equipment, equipment_partners), all indexes (idx_suppliers_company_id, idx_partners_company_id, idx_equipment_company_id, idx_equipment_supplier_id, idx_equipment_type_id, idx_equipment_status, idx_equipment_partners_equipment_id, idx_equipment_partners_partner_id), check constraints (rented requires supplier+costs, owned requires nulls), unique constraints, updated_at triggers reusing set_updated_at(), and trigger function check_equipment_partner_total() in supabase/migrations/20250211000001_equipment_schema.sql per data-model.md
-- [ ] T003 Create RLS policies migration enabling row-level security on all 5 new tables with SELECT/INSERT/UPDATE/DELETE policies using existing get_my_company_ids() and has_company_role() helpers — equipment_types (system+company visible, owner insert/delete custom), suppliers (member select, owner CUD), partners (member select, owner CUD), equipment (member select, owner insert/update, no delete), equipment_partners (member select via equipment subquery, owner CUD via equipment subquery) in supabase/migrations/20250211000002_equipment_rls.sql per data-model.md RLS section
-- [ ] T004 Create seed data migration inserting default equipment types with company_id = NULL: Total Station, GPS / GNSS, Level, Theodolite, Drone / UAV, 3D Scanner, Echo Sounder, Other in supabase/migrations/20250211000003_equipment_seed.sql
+- [x] T002 Create schema migration with enums (ownership_type, equipment_status), tables (equipment_types, suppliers, partners, equipment, equipment_partners), all indexes (idx_suppliers_company_id, idx_partners_company_id, idx_equipment_company_id, idx_equipment_supplier_id, idx_equipment_type_id, idx_equipment_status, idx_equipment_partners_equipment_id, idx_equipment_partners_partner_id), check constraints (rented requires supplier+costs, owned requires nulls), unique constraints, updated_at triggers reusing set_updated_at(), and trigger function check_equipment_partner_total() in supabase/migrations/20250211000001_equipment_schema.sql per data-model.md
+- [x] T003 Create RLS policies migration enabling row-level security on all 5 new tables with SELECT/INSERT/UPDATE/DELETE policies using existing get_my_company_ids() and has_company_role() helpers — equipment_types (system+company visible, owner insert/delete custom), suppliers (member select, owner CUD), partners (member select, owner CUD), equipment (member select, owner insert/update, no delete), equipment_partners (member select via equipment subquery, owner CUD via equipment subquery) in supabase/migrations/20250211000002_equipment_rls.sql per data-model.md RLS section
+- [x] T004 Create seed data migration inserting default equipment types with company_id = NULL: Total Station, GPS / GNSS, Level, Theodolite, Drone / UAV, 3D Scanner, Echo Sounder, Other in supabase/migrations/20250211000003_equipment_seed.sql
 
 **Checkpoint**: Run `npx supabase db reset && npx supabase db lint` to verify all migrations apply cleanly
 
@@ -57,17 +57,17 @@
 
 **Agent**: expert.BE
 
-- [ ] T005 Add query key factories for equipment (all, detail, partners, types), suppliers (all, detail), and partners (all, detail) to packages/api-client/src/lib/query-keys.ts per query key sections in contracts/equipment.ts, contracts/suppliers.ts, contracts/partners.ts
-- [ ] T006 [P] Create equipment Zod validation schemas (createEquipmentSchema with conditional rental field requirements based on ownership_type, updateEquipmentSchema, createEquipmentTypeSchema) with form-ready types inferred via z.infer in packages/api-client/src/schemas/equipment.ts
-- [ ] T007 [P] Create supplier Zod validation schemas (createSupplierSchema with name required + non-empty check, updateSupplierSchema) with form-ready types in packages/api-client/src/schemas/supplier.ts
-- [ ] T008 [P] Create partner Zod validation schemas (createPartnerSchema with name required + non-empty check, updatePartnerSchema) with form-ready types in packages/api-client/src/schemas/partner.ts
-- [ ] T009 [P] Implement equipmentService with list(companyId, filters?), getById(equipmentId), create(companyId, payload), update(equipmentId, payload), archive(equipmentId), reactivate(equipmentId), listPartners(equipmentId), addPartner(equipmentId, payload), updatePartnerPercentage(equipmentPartnerId, payload), removePartner(equipmentPartnerId), listTypes(companyId), createType(companyId, payload), deleteType(typeId) in packages/api-client/src/services/equipment.ts per contracts/equipment.ts
-- [ ] T010 [P] Implement supplierService with list(companyId, filters?), getById(supplierId) returning linked equipment, create(companyId, payload), update(supplierId, payload), delete(supplierId) in packages/api-client/src/services/supplier.ts per contracts/suppliers.ts
-- [ ] T011 [P] Implement partnerService with list(companyId, filters?), getById(partnerId) returning linked equipment with percentages, create(companyId, payload), update(partnerId, payload), delete(partnerId) in packages/api-client/src/services/partner.ts per contracts/partners.ts
-- [ ] T012 [P] Create React Query hooks (useEquipmentList, useEquipmentDetail, useCreateEquipment, useUpdateEquipment, useArchiveEquipment, useReactivateEquipment, useEquipmentPartners, useAddEquipmentPartner, useUpdateEquipmentPartner, useRemoveEquipmentPartner, useEquipmentTypes, useCreateEquipmentType) with proper query key invalidation in packages/api-client/src/hooks/use-equipment.ts
-- [ ] T013 [P] Create React Query hooks (useSupplierList, useSupplierDetail, useCreateSupplier, useUpdateSupplier, useDeleteSupplier) with proper query key invalidation in packages/api-client/src/hooks/use-supplier.ts
-- [ ] T014 [P] Create React Query hooks (usePartnerList, usePartnerDetail, useCreatePartner, useUpdatePartner, useDeletePartner) with proper query key invalidation in packages/api-client/src/hooks/use-partner.ts
-- [ ] T015 Export all new services (equipmentService, supplierService, partnerService), hooks (use-equipment, use-supplier, use-partner), and schemas (equipment, supplier, partner) from packages/api-client/src/index.ts
+- [x] T005 Add query key factories for equipment (all, detail, partners, types), suppliers (all, detail), and partners (all, detail) to packages/api-client/src/lib/query-keys.ts per query key sections in contracts/equipment.ts, contracts/suppliers.ts, contracts/partners.ts
+- [x] T006 [P] Create equipment Zod validation schemas (createEquipmentSchema with conditional rental field requirements based on ownership_type, updateEquipmentSchema, createEquipmentTypeSchema) with form-ready types inferred via z.infer in packages/api-client/src/schemas/equipment.ts
+- [x] T007 [P] Create supplier Zod validation schemas (createSupplierSchema with name required + non-empty check, updateSupplierSchema) with form-ready types in packages/api-client/src/schemas/supplier.ts
+- [x] T008 [P] Create partner Zod validation schemas (createPartnerSchema with name required + non-empty check, updatePartnerSchema) with form-ready types in packages/api-client/src/schemas/partner.ts
+- [x] T009 [P] Implement equipmentService with list(companyId, filters?), getById(equipmentId), create(companyId, payload), update(equipmentId, payload), archive(equipmentId), reactivate(equipmentId), listPartners(equipmentId), addPartner(equipmentId, payload), updatePartnerPercentage(equipmentPartnerId, payload), removePartner(equipmentPartnerId), listTypes(companyId), createType(companyId, payload), deleteType(typeId) in packages/api-client/src/services/equipment.ts per contracts/equipment.ts
+- [x] T010 [P] Implement supplierService with list(companyId, filters?), getById(supplierId) returning linked equipment, create(companyId, payload), update(supplierId, payload), delete(supplierId) in packages/api-client/src/services/supplier.ts per contracts/suppliers.ts
+- [x] T011 [P] Implement partnerService with list(companyId, filters?), getById(partnerId) returning linked equipment with percentages, create(companyId, payload), update(partnerId, payload), delete(partnerId) in packages/api-client/src/services/partner.ts per contracts/partners.ts
+- [x] T012 [P] Create React Query hooks (useEquipmentList, useEquipmentDetail, useCreateEquipment, useUpdateEquipment, useArchiveEquipment, useReactivateEquipment, useEquipmentPartners, useAddEquipmentPartner, useUpdateEquipmentPartner, useRemoveEquipmentPartner, useEquipmentTypes, useCreateEquipmentType) with proper query key invalidation in packages/api-client/src/hooks/use-equipment.ts
+- [x] T013 [P] Create React Query hooks (useSupplierList, useSupplierDetail, useCreateSupplier, useUpdateSupplier, useDeleteSupplier) with proper query key invalidation in packages/api-client/src/hooks/use-supplier.ts
+- [x] T014 [P] Create React Query hooks (usePartnerList, usePartnerDetail, useCreatePartner, useUpdatePartner, useDeletePartner) with proper query key invalidation in packages/api-client/src/hooks/use-partner.ts
+- [x] T015 Export all new services (equipmentService, supplierService, partnerService), hooks (use-equipment, use-supplier, use-partner), and schemas (equipment, supplier, partner) from packages/api-client/src/index.ts
 
 **Checkpoint**: Run `npm run check-types && npm run build` to verify all packages compile
 
@@ -81,20 +81,20 @@
 
 ### Web Implementation
 
-- [ ] T016 [P] [US1] Create sidebar layout component with navigation items for Equipment, Suppliers, Partners using React Router NavLink with active states in apps/web/src/components/layout/sidebar.tsx
-- [ ] T017 [US1] Update App.tsx to add routes for /equipment, /equipment/:id, /equipment/new, /equipment/:id/edit, /suppliers/*, /partners/* and wrap authenticated routes with sidebar layout in apps/web/src/App.tsx
-- [ ] T018 [P] [US1] Create equipment card component displaying equipment name, serial number, type name, model, ownership type badge, and status badge with link to detail page in apps/web/src/components/equipment/equipment-card.tsx
-- [ ] T019 [P] [US1] Create equipment form component with React Hook Form + Zod (createEquipmentSchema): fields for name, serial_number, equipment_type_id (dropdown from useEquipmentTypes), model, ownership_type (radio owned/rented), and conditional fields when rented (supplier_id select from useSupplierList, monthly_rent, daily_rent numeric inputs) in apps/web/src/components/equipment/equipment-form.tsx
-- [ ] T020 [US1] Create equipment list page fetching data via useEquipmentList, rendering equipment-card components in a grid, with "Add Equipment" button linking to /equipment/new in apps/web/src/pages/equipment/list.tsx
-- [ ] T021 [US1] Create equipment detail page fetching data via useEquipmentDetail, displaying all equipment fields, equipment type name, status with archive/reactivate button, and supplier info with rental costs (if rented) in apps/web/src/pages/equipment/detail.tsx
-- [ ] T022 [US1] Create equipment add/edit page: uses equipment-form component, calls useCreateEquipment for new or useUpdateEquipment for existing (prefilled via useEquipmentDetail), navigates to detail on success in apps/web/src/pages/equipment/form.tsx
+- [x] T016 [P] [US1] Create sidebar layout component with navigation items for Equipment, Suppliers, Partners using React Router NavLink with active states in apps/web/src/components/layout/sidebar.tsx
+- [x] T017 [US1] Update App.tsx to add routes for /equipment, /equipment/:id, /equipment/new, /equipment/:id/edit, /suppliers/*, /partners/* and wrap authenticated routes with sidebar layout in apps/web/src/App.tsx
+- [x] T018 [P] [US1] Create equipment card component displaying equipment name, serial number, type name, model, ownership type badge, and status badge with link to detail page in apps/web/src/components/equipment/equipment-card.tsx
+- [x] T019 [P] [US1] Create equipment form component with React Hook Form + Zod (createEquipmentSchema): fields for name, serial_number, equipment_type_id (dropdown from useEquipmentTypes), model, ownership_type (radio owned/rented), and conditional fields when rented (supplier_id select from useSupplierList, monthly_rent, daily_rent numeric inputs) in apps/web/src/components/equipment/equipment-form.tsx
+- [x] T020 [US1] Create equipment list page fetching data via useEquipmentList, rendering equipment-card components in a grid, with "Add Equipment" button linking to /equipment/new in apps/web/src/pages/equipment/list.tsx
+- [x] T021 [US1] Create equipment detail page fetching data via useEquipmentDetail, displaying all equipment fields, equipment type name, status with archive/reactivate button, and supplier info with rental costs (if rented) in apps/web/src/pages/equipment/detail.tsx
+- [x] T022 [US1] Create equipment add/edit page: uses equipment-form component, calls useCreateEquipment for new or useUpdateEquipment for existing (prefilled via useEquipmentDetail), navigates to detail on success in apps/web/src/pages/equipment/form.tsx
 
 ### Mobile Implementation
 
-- [ ] T023 [P] [US1] Update tab/drawer navigation to include Equipment, Suppliers, Partners navigation entries with appropriate icons in apps/mobile/app/(tabs)/_layout.tsx
-- [ ] T024 [P] [US1] Create equipment list screen with FlatList rendering equipment items (name, serial, type, status), pull-to-refresh, and FAB/header button to add new equipment in apps/mobile/app/(app)/equipment/index.tsx
-- [ ] T025 [P] [US1] Create equipment detail screen displaying all equipment fields, type name, status with archive/reactivate action, supplier info with rental costs (if rented), and edit button in apps/mobile/app/(app)/equipment/[id].tsx
-- [ ] T026 [P] [US1] Create equipment add/edit screen with ScrollView form: name, serial_number, equipment_type_id (picker), model, ownership_type (segmented control), conditional rental fields (supplier picker, monthly_rent, daily_rent), submit with create/update mutation in apps/mobile/app/(app)/equipment/form.tsx
+- [x] T023 [P] [US1] Update tab/drawer navigation to include Equipment, Suppliers, Partners navigation entries with appropriate icons in apps/mobile/app/(tabs)/_layout.tsx
+- [x] T024 [P] [US1] Create equipment list screen with FlatList rendering equipment items (name, serial, type, status), pull-to-refresh, and FAB/header button to add new equipment in apps/mobile/app/(app)/equipment/index.tsx
+- [x] T025 [P] [US1] Create equipment detail screen displaying all equipment fields, type name, status with archive/reactivate action, supplier info with rental costs (if rented), and edit button in apps/mobile/app/(app)/equipment/[id].tsx
+- [x] T026 [P] [US1] Create equipment add/edit screen with ScrollView form: name, serial_number, equipment_type_id (picker), model, ownership_type (segmented control), conditional rental fields (supplier picker, monthly_rent, daily_rent), submit with create/update mutation in apps/mobile/app/(app)/equipment/form.tsx
 
 **Checkpoint**: Equipment CRUD fully functional on both web and mobile — create owned + rented equipment, edit, view detail, list all. Sidebar navigation shows all three sections.
 
@@ -112,13 +112,13 @@
 
 ### Web Implementation
 
-- [ ] T027 [P] [US2] Enhance equipment detail page to add a prominent "Rental Information" section for rented equipment showing supplier name (linked to supplier detail), monthly rent, and daily rent formatted as currency; hide this section for owned equipment in apps/web/src/pages/equipment/detail.tsx
-- [ ] T028 [P] [US2] Add ownership type transition confirmation dialogs to equipment form: when changing owned→rented warn "Partner ownership data will be removed", when changing rented→owned warn "Supplier and rental cost data will be removed", require explicit confirmation before proceeding in apps/web/src/components/equipment/equipment-form.tsx
+- [x] T027 [P] [US2] Enhance equipment detail page to add a prominent "Rental Information" section for rented equipment showing supplier name (linked to supplier detail), monthly rent, and daily rent formatted as currency; hide this section for owned equipment in apps/web/src/pages/equipment/detail.tsx
+- [x] T028 [P] [US2] Add ownership type transition confirmation dialogs to equipment form: when changing owned→rented warn "Partner ownership data will be removed", when changing rented→owned warn "Supplier and rental cost data will be removed", require explicit confirmation before proceeding in apps/web/src/components/equipment/equipment-form.tsx
 
 ### Mobile Implementation
 
-- [ ] T029 [P] [US2] Enhance equipment detail screen to add a "Rental Information" card for rented equipment showing supplier name, monthly rent, and daily rent in apps/mobile/app/(app)/equipment/[id].tsx
-- [ ] T030 [P] [US2] Add ownership type transition confirmation alerts (Alert.alert) to mobile equipment form when changing between owned and rented in apps/mobile/app/(app)/equipment/form.tsx
+- [x] T029 [P] [US2] Enhance equipment detail screen to add a "Rental Information" card for rented equipment showing supplier name, monthly rent, and daily rent in apps/mobile/app/(app)/equipment/[id].tsx
+- [x] T030 [P] [US2] Add ownership type transition confirmation alerts (Alert.alert) to mobile equipment form when changing between owned and rented in apps/mobile/app/(app)/equipment/form.tsx
 
 **Checkpoint**: Rented equipment shows prominent supplier + costs on detail; ownership type changes trigger data-loss confirmation warnings
 
@@ -136,12 +136,12 @@
 
 ### Web Implementation
 
-- [ ] T031 [P] [US3] Create partner ownership component: displays list of partners with name and percentage, company's auto-calculated share, "Add Partner" button with partner select dropdown (from usePartnerList) and percentage input, inline edit percentage, remove partner button; uses useEquipmentPartners, useAddEquipmentPartner, useUpdateEquipmentPartner, useRemoveEquipmentPartner hooks; validates total ≤ 100% client-side; hidden for rented equipment in apps/web/src/components/equipment/partner-ownership.tsx
-- [ ] T032 [US3] Integrate partner-ownership component into equipment detail page: render below equipment info section, only visible when ownership_type is "owned" in apps/web/src/pages/equipment/detail.tsx
+- [x] T031 [P] [US3] Create partner ownership component: displays list of partners with name and percentage, company's auto-calculated share, "Add Partner" button with partner select dropdown (from usePartnerList) and percentage input, inline edit percentage, remove partner button; uses useEquipmentPartners, useAddEquipmentPartner, useUpdateEquipmentPartner, useRemoveEquipmentPartner hooks; validates total ≤ 100% client-side; hidden for rented equipment in apps/web/src/components/equipment/partner-ownership.tsx
+- [x] T032 [US3] Integrate partner-ownership component into equipment detail page: render below equipment info section, only visible when ownership_type is "owned" in apps/web/src/pages/equipment/detail.tsx
 
 ### Mobile Implementation
 
-- [ ] T033 [US3] Add partner ownership section to mobile equipment detail screen: displays partner list with percentages, company share, add/remove/edit partner functionality using bottom sheet or modal, percentage validation, only visible for owned equipment in apps/mobile/app/(app)/equipment/[id].tsx
+- [x] T033 [US3] Add partner ownership section to mobile equipment detail screen: displays partner list with percentages, company share, add/remove/edit partner functionality using bottom sheet or modal, percentage validation, only visible for owned equipment in apps/mobile/app/(app)/equipment/[id].tsx
 
 **Checkpoint**: Owned equipment shows full ownership breakdown; partners can be added/removed/edited with percentage validation; rented equipment hides partner section
 
@@ -155,17 +155,17 @@
 
 ### Web Implementation
 
-- [ ] T034 [P] [US4] Create supplier card component displaying supplier name, phone, and rented equipment count badge in apps/web/src/components/supplier/supplier-card.tsx
-- [ ] T035 [P] [US4] Create supplier form component with React Hook Form + Zod (createSupplierSchema): name (required, non-empty) and phone fields in apps/web/src/components/supplier/supplier-form.tsx
-- [ ] T036 [US4] Create supplier list page fetching data via useSupplierList, rendering supplier-card components in a grid, with "Add Supplier" button in apps/web/src/pages/suppliers/list.tsx
-- [ ] T037 [US4] Create supplier detail page fetching data via useSupplierDetail, displaying supplier name and phone, and a "Rented Equipment" section listing all linked equipment (name, serial number, monthly rent, daily rent) in apps/web/src/pages/suppliers/detail.tsx
-- [ ] T038 [US4] Create supplier add/edit page using supplier-form component with create/update mutations, navigates to detail on success in apps/web/src/pages/suppliers/form.tsx
+- [x] T034 [P] [US4] Create supplier card component displaying supplier name, phone, and rented equipment count badge in apps/web/src/components/supplier/supplier-card.tsx
+- [x] T035 [P] [US4] Create supplier form component with React Hook Form + Zod (createSupplierSchema): name (required, non-empty) and phone fields in apps/web/src/components/supplier/supplier-form.tsx
+- [x] T036 [US4] Create supplier list page fetching data via useSupplierList, rendering supplier-card components in a grid, with "Add Supplier" button in apps/web/src/pages/suppliers/list.tsx
+- [x] T037 [US4] Create supplier detail page fetching data via useSupplierDetail, displaying supplier name and phone, and a "Rented Equipment" section listing all linked equipment (name, serial number, monthly rent, daily rent) in apps/web/src/pages/suppliers/detail.tsx
+- [x] T038 [US4] Create supplier add/edit page using supplier-form component with create/update mutations, navigates to detail on success in apps/web/src/pages/suppliers/form.tsx
 
 ### Mobile Implementation
 
-- [ ] T039 [P] [US4] Create supplier list screen with FlatList rendering supplier items (name, phone, equipment count), pull-to-refresh, and add button in apps/mobile/app/(app)/suppliers/index.tsx
-- [ ] T040 [P] [US4] Create supplier detail screen displaying name, phone, and linked rented equipment list with rental costs in apps/mobile/app/(app)/suppliers/[id].tsx
-- [ ] T041 [P] [US4] Create supplier add/edit screen with form fields (name, phone) and create/update mutation in apps/mobile/app/(app)/suppliers/form.tsx
+- [x] T039 [P] [US4] Create supplier list screen with FlatList rendering supplier items (name, phone, equipment count), pull-to-refresh, and add button in apps/mobile/app/(app)/suppliers/index.tsx
+- [x] T040 [P] [US4] Create supplier detail screen displaying name, phone, and linked rented equipment list with rental costs in apps/mobile/app/(app)/suppliers/[id].tsx
+- [x] T041 [P] [US4] Create supplier add/edit screen with form fields (name, phone) and create/update mutation in apps/mobile/app/(app)/suppliers/form.tsx
 
 **Checkpoint**: Supplier CRUD fully functional on web + mobile; supplier detail shows linked rented equipment with costs
 
@@ -179,17 +179,17 @@
 
 ### Web Implementation
 
-- [ ] T042 [P] [US5] Create partner card component displaying partner name, phone, and co-owned equipment count badge in apps/web/src/components/partner/partner-card.tsx
-- [ ] T043 [P] [US5] Create partner form component with React Hook Form + Zod (createPartnerSchema): name (required, non-empty) and phone fields in apps/web/src/components/partner/partner-form.tsx
-- [ ] T044 [US5] Create partner list page fetching data via usePartnerList, rendering partner-card components in a grid, with "Add Partner" button in apps/web/src/pages/partners/list.tsx
-- [ ] T045 [US5] Create partner detail page fetching data via usePartnerDetail, displaying partner name and phone, and a "Co-Owned Equipment" section listing all linked equipment (name, serial number, ownership percentage) in apps/web/src/pages/partners/detail.tsx
-- [ ] T046 [US5] Create partner add/edit page using partner-form component with create/update mutations, navigates to detail on success in apps/web/src/pages/partners/form.tsx
+- [x] T042 [P] [US5] Create partner card component displaying partner name, phone, and co-owned equipment count badge in apps/web/src/components/partner/partner-card.tsx
+- [x] T043 [P] [US5] Create partner form component with React Hook Form + Zod (createPartnerSchema): name (required, non-empty) and phone fields in apps/web/src/components/partner/partner-form.tsx
+- [x] T044 [US5] Create partner list page fetching data via usePartnerList, rendering partner-card components in a grid, with "Add Partner" button in apps/web/src/pages/partners/list.tsx
+- [x] T045 [US5] Create partner detail page fetching data via usePartnerDetail, displaying partner name and phone, and a "Co-Owned Equipment" section listing all linked equipment (name, serial number, ownership percentage) in apps/web/src/pages/partners/detail.tsx
+- [x] T046 [US5] Create partner add/edit page using partner-form component with create/update mutations, navigates to detail on success in apps/web/src/pages/partners/form.tsx
 
 ### Mobile Implementation
 
-- [ ] T047 [P] [US5] Create partner list screen with FlatList rendering partner items (name, phone, equipment count), pull-to-refresh, and add button in apps/mobile/app/(app)/partners/index.tsx
-- [ ] T048 [P] [US5] Create partner detail screen displaying name, phone, and linked equipment list with ownership percentages in apps/mobile/app/(app)/partners/[id].tsx
-- [ ] T049 [P] [US5] Create partner add/edit screen with form fields (name, phone) and create/update mutation in apps/mobile/app/(app)/partners/form.tsx
+- [x] T047 [P] [US5] Create partner list screen with FlatList rendering partner items (name, phone, equipment count), pull-to-refresh, and add button in apps/mobile/app/(app)/partners/index.tsx
+- [x] T048 [P] [US5] Create partner detail screen displaying name, phone, and linked equipment list with ownership percentages in apps/mobile/app/(app)/partners/[id].tsx
+- [x] T049 [P] [US5] Create partner add/edit screen with form fields (name, phone) and create/update mutation in apps/mobile/app/(app)/partners/form.tsx
 
 **Checkpoint**: Partner CRUD fully functional on web + mobile; partner detail shows linked equipment with ownership percentages
 
@@ -205,17 +205,17 @@
 
 ### Web Implementation
 
-- [ ] T050 [US6] Add table/card view toggle and filter controls (search by name, filter by equipment type, ownership type, status with "Show inactive" toggle) to equipment list page in apps/web/src/pages/equipment/list.tsx
-- [ ] T051 [P] [US6] Add table/card view toggle and name search filter to supplier list page in apps/web/src/pages/suppliers/list.tsx
-- [ ] T052 [P] [US6] Add table/card view toggle and name search filter to partner list page in apps/web/src/pages/partners/list.tsx
-- [ ] T053 [US6] Add empty state components with illustration and "Add your first [Equipment/Supplier/Partner]" CTA button to all three list pages when no records exist in apps/web/src/pages/equipment/list.tsx, apps/web/src/pages/suppliers/list.tsx, apps/web/src/pages/partners/list.tsx
+- [x] T050 [US6] Add table/card view toggle and filter controls (search by name, filter by equipment type, ownership type, status with "Show inactive" toggle) to equipment list page in apps/web/src/pages/equipment/list.tsx
+- [x] T051 [P] [US6] Add table/card view toggle and name search filter to supplier list page in apps/web/src/pages/suppliers/list.tsx
+- [x] T052 [P] [US6] Add table/card view toggle and name search filter to partner list page in apps/web/src/pages/partners/list.tsx
+- [x] T053 [US6] Add empty state components with illustration and "Add your first [Equipment/Supplier/Partner]" CTA button to all three list pages when no records exist in apps/web/src/pages/equipment/list.tsx, apps/web/src/pages/suppliers/list.tsx, apps/web/src/pages/partners/list.tsx
 
 ### Mobile Implementation
 
-- [ ] T054 [P] [US6] Add list style toggle (card/compact) and filter controls to equipment list screen in apps/mobile/app/(app)/equipment/index.tsx
-- [ ] T055 [P] [US6] Add name search filter to supplier list screen in apps/mobile/app/(app)/suppliers/index.tsx
-- [ ] T056 [P] [US6] Add name search filter to partner list screen in apps/mobile/app/(app)/partners/index.tsx
-- [ ] T057 [US6] Add empty state displays with "Add first [entity]" prompt to all three mobile list screens in apps/mobile/app/(app)/equipment/index.tsx, apps/mobile/app/(app)/suppliers/index.tsx, apps/mobile/app/(app)/partners/index.tsx
+- [x] T054 [P] [US6] Add list style toggle (card/compact) and filter controls to equipment list screen in apps/mobile/app/(app)/equipment/index.tsx
+- [x] T055 [P] [US6] Add name search filter to supplier list screen in apps/mobile/app/(app)/suppliers/index.tsx
+- [x] T056 [P] [US6] Add name search filter to partner list screen in apps/mobile/app/(app)/partners/index.tsx
+- [x] T057 [US6] Add empty state displays with "Add first [entity]" prompt to all three mobile list screens in apps/mobile/app/(app)/equipment/index.tsx, apps/mobile/app/(app)/suppliers/index.tsx, apps/mobile/app/(app)/partners/index.tsx
 
 **Checkpoint**: All list pages have table/card toggle, filters, search, empty states; sidebar navigation fully polished with active states
 
@@ -225,10 +225,10 @@
 
 **Purpose**: Edge case handling, validation refinements, and final verification
 
-- [ ] T058 Add client-side validation error display for duplicate serial numbers (equipment), duplicate names (suppliers, partners) by catching Supabase unique constraint errors and showing user-friendly messages in equipment-form, supplier-form, and partner-form components
-- [ ] T059 Add pagination or infinite scroll to all list pages and screens handling datasets beyond initial page size
-- [ ] T060 Verify equipment status filter works correctly: active equipment shown by default on all list pages, inactive accessible via "Show inactive" toggle, status badge visible on cards
-- [ ] T061 Run quickstart.md verification steps: `npx supabase db reset`, `npx supabase db lint`, `npm run check-types`, `npm run build`, start web and mobile dev servers and verify end-to-end flow
+- [x] T058 Add client-side validation error display for duplicate serial numbers (equipment), duplicate names (suppliers, partners) by catching Supabase unique constraint errors and showing user-friendly messages in equipment-form, supplier-form, and partner-form components
+- [x] T059 Add pagination or infinite scroll to all list pages and screens handling datasets beyond initial page size
+- [x] T060 Verify equipment status filter works correctly: active equipment shown by default on all list pages, inactive accessible via "Show inactive" toggle, status badge visible on cards
+- [x] T061 Run quickstart.md verification steps: `npx supabase db reset`, `npx supabase db lint`, `npm run check-types`, `npm run build`, start web and mobile dev servers and verify end-to-end flow
 
 ---
 

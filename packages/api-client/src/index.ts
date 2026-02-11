@@ -35,9 +35,52 @@ export {
   useUpdateCompanyMutation,
 } from "./hooks/use-company";
 
+// ---- Equipment ------------------------------------------------------------
+export { equipmentService } from "./services/equipment";
+export {
+  useEquipmentList,
+  useEquipmentDetail,
+  useCreateEquipmentMutation,
+  useUpdateEquipmentMutation,
+  useArchiveEquipmentMutation,
+  useReactivateEquipmentMutation,
+  useEquipmentPartners,
+  useAddEquipmentPartnerMutation,
+  useUpdateEquipmentPartnerMutation,
+  useRemoveEquipmentPartnerMutation,
+  useEquipmentTypes,
+  useCreateEquipmentTypeMutation,
+} from "./hooks/use-equipment";
+
+// ---- Suppliers ------------------------------------------------------------
+export { supplierService } from "./services/supplier";
+export {
+  useSupplierList,
+  useSupplierDetail,
+  useCreateSupplierMutation,
+  useUpdateSupplierMutation,
+  useDeleteSupplierMutation,
+} from "./hooks/use-supplier";
+
+// ---- Partners -------------------------------------------------------------
+export { partnerService } from "./services/partner";
+export {
+  usePartnerList,
+  usePartnerDetail,
+  useCreatePartnerMutation,
+  useUpdatePartnerMutation,
+  useDeletePartnerMutation,
+} from "./hooks/use-partner";
+
 // ---- Schemas (for use in form validation) ---------------------------------
 export { signUpSchema, signInSchema, updateProfileSchema, resetPasswordSchema } from "./schemas/auth";
 export { createCompanySchema } from "./schemas/company";
+export { createEquipmentSchema, updateEquipmentSchema, createEquipmentTypeSchema } from "./schemas/equipment";
+export type { CreateEquipmentFormData, UpdateEquipmentFormData, CreateEquipmentTypeFormData } from "./schemas/equipment";
+export { createSupplierSchema, updateSupplierSchema } from "./schemas/supplier";
+export type { CreateSupplierFormData, UpdateSupplierFormData } from "./schemas/supplier";
+export { createPartnerSchema, updatePartnerSchema } from "./schemas/partner";
+export type { CreatePartnerFormData, UpdatePartnerFormData } from "./schemas/partner";
 
 // ---- Legacy / utility -----------------------------------------------------
 export { usePingQuery } from "./hooks/use-ping-query";

@@ -5,11 +5,19 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMyProfile, useSignOutMutation } from '@repo/api-client';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
+const sections = [
+  { label: 'Equipment', route: '/(app)/equipment' as const, icon: '🔧' },
+  { label: 'Suppliers', route: '/(app)/suppliers' as const, icon: '🚚' },
+  { label: 'Partners', route: '/(app)/partners' as const, icon: '🤝' },
+];
+
 export default function HomeScreen() {
+  const router = useRouter();
   const { data: profileResult, isLoading, error: queryError } = useMyProfile();
   const signOut = useSignOutMutation();
   const insets = useSafeAreaInsets();
@@ -19,12 +27,12 @@ export default function HomeScreen() {
   const tintColor = useThemeColor({}, 'tint');
   const mutedColor = useThemeColor({ light: '#6b7280', dark: '#9ca3af' }, 'icon');
   const borderColor = useThemeColor({ light: '#e2e8f0', dark: '#334155' }, 'icon');
+  const cardBg = useThemeColor({ light: '#f8fafc', dark: '#1e293b' }, 'background');
 
   const profile = profileResult?.data;
 
   function handleSignOut() {
     signOut.mutate(undefined);
-    // Auth gate will redirect to /login
   }
 
   if (isLoading) {
@@ -75,6 +83,24 @@ export default function HomeScreen() {
           )}
         </Pressable>
       </View>
+
+      <View style={styles.sections}>
+        {sections.map(({ label, route, icon }) => (
+          <Pressable
+            key={route}
+            style={({ pressed }) => [
+              styles.sectionCard,
+              { backgroundColor: cardBg, borderColor, opacity: pressed ? 0.85 : 1 },
+            ]}
+            onPress={() => router.push(route as never)}
+            accessibilityRole="button"
+            accessibilityLabel={`Go to ${label}`}
+          >
+            <Text style={styles.sectionIcon}>{icon}</Text>
+            <Text style={[styles.sectionLabel, { color: textColor }]}>{label}</Text>
+          </Pressable>
+        ))}
+      </View>
     </View>
   );
 }
@@ -115,5 +141,25 @@ const styles = StyleSheet.create({
     color: '#ef4444',
     fontSize: 15,
     textAlign: 'center',
+  },
+  sections: {
+    paddingHorizontal: 24,
+    gap: 12,
+  },
+  sectionCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  sectionIcon: {
+    fontSize: 28,
+  },
+  sectionLabel: {
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
