@@ -52,7 +52,7 @@ export default function PartnerFormScreen() {
   async function onSubmit(data: CreatePartnerFormData) {
     setApiError(null);
     if (isEdit && id) {
-      const res = await updateMutation.mutateAsync({ id, payload: data });
+      const res = await updateMutation.mutateAsync({ partnerId:id, payload: data });
       if (res.error) { setApiError(res.error.message); return; }
     } else if (companyId) {
       const res = await createMutation.mutateAsync({ companyId, payload: data });
