@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSession, useMyProfile, useSignOutMutation } from "@repo/api-client";
-import { Loader2, LogOut, Wrench, Truck, Users } from "lucide-react";
+import { Loader2, LogOut, Wrench, Truck, Users, HardHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ const navItems = [
   { to: "/equipment", label: "Equipment", icon: Wrench },
   { to: "/suppliers", label: "Suppliers", icon: Truck },
   { to: "/partners", label: "Partners", icon: Users },
+  { to: "/workers", label: "Workers", icon: HardHat },
 ] as const;
 
 export default function SidebarLayout() {
