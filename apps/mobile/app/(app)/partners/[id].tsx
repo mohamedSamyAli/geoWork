@@ -83,9 +83,9 @@ export default function PartnerDetailScreen() {
             >
               <Text style={{ color: textColor, fontWeight: '500' }}>{eq.name}</Text>
               <Text style={{ color: mutedColor, fontSize: 12 }}>{eq.serial_number}</Text>
-              {eq.ownership_percentage != null && (
+              {eq.percentage != null && (
                 <Text style={{ color: mutedColor, fontSize: 12, marginTop: 2 }}>
-                  Ownership: {Number(eq.ownership_percentage).toFixed(1)}%
+                  Ownership: {Number(eq.percentage).toFixed(1)}%
                 </Text>
               )}
             </Pressable>

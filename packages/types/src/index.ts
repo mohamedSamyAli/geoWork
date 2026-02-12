@@ -237,3 +237,112 @@ export interface LinkedEquipment {
 export interface CreateEquipmentTypePayload {
   name: string;
 }
+
+// ---- Workers module: DB row types -----------------------------------------
+
+export type WorkerCategory = "engineer" | "surveyor" | "assistant";
+export type WorkerStatus = "active" | "inactive";
+export type ProficiencyRating = 1 | 2 | 3 | 4 | 5;
+
+export interface Worker {
+  id: string;
+  company_id: string;
+  name: string;
+  phone: string;
+  category: WorkerCategory;
+  salary_month: number;
+  salary_day: number;
+  status: WorkerStatus;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface Software {
+  id: string;
+  company_id: string | null;
+  name: string;
+  is_seeded: boolean;
+  created_at: string;
+}
+
+export interface EquipmentBrand {
+  id: string;
+  company_id: string | null;
+  name: string;
+  created_at: string;
+}
+
+export interface WorkerEquipmentSkill {
+  id: string;
+  worker_id: string;
+  equipment_type: string;
+  equipment_brand: string;
+  proficiency_rating: ProficiencyRating;
+  created_at: string;
+}
+
+export interface WorkerSoftwareSkill {
+  id: string;
+  worker_id: string;
+  software_id: string;
+  created_at: string;
+}
+
+// ---- Workers module: Composite / joined types ------------------------------
+
+export interface WorkerWithSkills extends Worker {
+  equipment_skills: WorkerEquipmentSkill[];
+  software_skills: Array<WorkerSoftwareSkill & { software: Software }>;
+}
+
+export interface WorkerWithEquipmentSkills extends Worker {
+  equipment_skills: WorkerEquipmentSkill[];
+}
+
+export interface WorkerWithSoftwareSkills extends Worker {
+  software_skills: Array<WorkerSoftwareSkill & { software_name: string }>;
+}
+
+// ---- Workers module: DTOs / payloads --------------------------------------
+
+export interface CreateWorkerPayload {
+  name: string;
+  phone: string;
+  category: WorkerCategory;
+  salary_month: number;
+  salary_day: number;
+  equipment_skills?: Array<{
+    equipment_type: string;
+    equipment_brand: string;
+    proficiency_rating: ProficiencyRating;
+  }>;
+  software_skill_ids?: string[];
+}
+
+export interface UpdateWorkerPayload {
+  name?: string;
+  phone?: string;
+  category?: WorkerCategory;
+  salary_month?: number;
+  salary_day?: number;
+  status?: WorkerStatus;
+}
+
+export interface AddWorkerEquipmentSkillPayload {
+  equipment_type: string;
+  equipment_brand: string;
+  proficiency_rating: ProficiencyRating;
+}
+
+export interface UpdateWorkerEquipmentSkillPayload {
+  proficiency_rating: ProficiencyRating;
+}
+
+export interface CreateSoftwarePayload {
+  name: string;
+}
+
+export interface CreateEquipmentBrandPayload {
+  name: string;
+}

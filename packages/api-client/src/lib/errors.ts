@@ -44,6 +44,17 @@ function mapUniqueConstraintMessage(message: string, details?: string): string {
     return "A supplier with this name already exists.";
   if (combined.includes("partners") && combined.includes("name"))
     return "A partner with this name already exists.";
+  // Workers module constraints
+  if (combined.includes("workers") && combined.includes("phone"))
+    return "A worker with this phone number already exists.";
+  if (combined.includes("software") && combined.includes("name"))
+    return "Software with this name already exists.";
+  if (combined.includes("equipment_brands") && combined.includes("name"))
+    return "An equipment brand with this name already exists.";
+  if (combined.includes("worker_equipment_skills") && combined.includes("worker_id"))
+    return "This equipment skill already exists for the worker.";
+  if (combined.includes("worker_software_skills") && combined.includes("worker_id"))
+    return "This software skill is already assigned to the worker.";
 
   return "A record with these details already exists.";
 }

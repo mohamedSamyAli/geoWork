@@ -13,6 +13,9 @@ export default function AppLayout() {
       <Stack.Screen name="partners/index" options={{ title: 'Partners' }} />
       <Stack.Screen name="partners/[id]" options={{ title: 'Partner Detail' }} />
       <Stack.Screen name="partners/form" options={{ title: 'Partner Form' }} />
+      <Stack.Screen name="workers/list" options={{ title: 'Workers' }} />
+      <Stack.Screen name="workers/[id]" options={{ title: 'Worker Detail' }} />
+      <Stack.Screen name="workers/form" options={{ title: 'Worker Form' }} />
     </Stack>
   );
 }
