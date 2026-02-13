@@ -14,6 +14,8 @@ const sections = [
   { label: 'Equipment', route: '/(app)/equipment' as const, icon: '🔧' },
   { label: 'Suppliers', route: '/(app)/suppliers' as const, icon: '🚚' },
   { label: 'Partners', route: '/(app)/partners' as const, icon: '🤝' },
+  { label: 'Workers', route: '/(app)/workers/list' as const, icon: '👷' },
+  { label: 'Customers', route: '/(app)/customers' as const, icon: '🏢' },
 ];
 
 export default function HomeScreen() {

@@ -37,4 +37,10 @@ export const queryKeys = {
     equipmentBrands: (companyId: string) => ["equipment-brands", companyId] as const,
     equipmentTypes: (companyId: string) => ["equipment-types", companyId] as const,
   },
+  customers: {
+    all: (companyId: string) => ["customers", companyId] as const,
+    detail: (id: string) => ["customers", "detail", id] as const,
+    contacts: (customerId: string) => ["customers", customerId, "contacts"] as const,
+    sites: (customerId: string) => ["customers", customerId, "sites"] as const,
+  },
 } as const;

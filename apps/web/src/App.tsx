@@ -16,6 +16,9 @@ import PartnerFormPage from "@/pages/partners/form";
 import WorkersListPage from "@/pages/workers/list";
 import WorkersDetailPage from "@/pages/workers/detail";
 import WorkersFormPage from "@/pages/workers/form";
+import CustomerListPage from "@/pages/customers/list";
+import CustomerDetailPage from "@/pages/customers/detail";
+import CustomerFormPage from "@/pages/customers/form";
 
 export default function App() {
   return (
@@ -55,6 +58,12 @@ export default function App() {
             <Route path="/workers/new" element={<WorkersFormPage />} />
             <Route path="/workers/:id" element={<WorkersDetailPage />} />
             <Route path="/workers/:id/edit" element={<WorkersFormPage />} />
+
+            {/* Customers routes */}
+            <Route path="/customers" element={<CustomerListPage />} />
+            <Route path="/customers/new" element={<CustomerFormPage />} />
+            <Route path="/customers/:id" element={<CustomerDetailPage />} />
+            <Route path="/customers/:id/edit" element={<CustomerFormPage />} />
           </Route>
         </Route>
 

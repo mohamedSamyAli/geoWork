@@ -56,6 +56,12 @@ function mapUniqueConstraintMessage(message: string, details?: string): string {
   if (combined.includes("worker_software_skills") && combined.includes("worker_id"))
     return "This software skill is already assigned to the worker.";
 
+  // Customers module constraints
+  if (combined.includes("customers") && combined.includes("name"))
+    return "A customer with this name already exists.";
+  if (combined.includes("customer_sites") && combined.includes("name"))
+    return "A site with this name already exists for this customer.";
+
   return "A record with these details already exists.";
 }
 

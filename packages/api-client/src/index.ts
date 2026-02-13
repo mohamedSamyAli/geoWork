@@ -121,6 +121,40 @@ export type {
   CreateEquipmentBrandFormData,
 } from "./schemas/worker";
 
+// ---- Customers ------------------------------------------------------------
+export { customerService } from "./services/customer";
+export {
+  useCustomerList,
+  useCustomerDetail,
+  useCustomerContacts,
+  useCustomerSites,
+  useCreateCustomerMutation,
+  useUpdateCustomerMutation,
+  useSoftDeleteCustomerMutation,
+  useCreateCustomerContactMutation,
+  useUpdateCustomerContactMutation,
+  useDeleteCustomerContactMutation,
+  useCreateCustomerSiteMutation,
+  useUpdateCustomerSiteMutation,
+  useSoftDeleteCustomerSiteMutation,
+} from "./hooks/use-customer";
+export {
+  createCustomerSchema,
+  updateCustomerSchema,
+  createCustomerContactSchema,
+  updateCustomerContactSchema,
+  createCustomerSiteSchema,
+  updateCustomerSiteSchema,
+} from "./schemas/customer";
+export type {
+  CreateCustomerFormData,
+  UpdateCustomerFormData,
+  CreateCustomerContactFormData,
+  UpdateCustomerContactFormData,
+  CreateCustomerSiteFormData,
+  UpdateCustomerSiteFormData,
+} from "./schemas/customer";
+
 // ---- Legacy / utility -----------------------------------------------------
 export { usePingQuery } from "./hooks/use-ping-query";
 export { pingService } from "./services/ping";

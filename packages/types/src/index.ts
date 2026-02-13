@@ -346,3 +346,128 @@ export interface CreateSoftwarePayload {
 export interface CreateEquipmentBrandPayload {
   name: string;
 }
+
+// ---- Customers module: Enums ------------------------------------------------
+
+export type CustomerType = "individual" | "company" | "government";
+export type CustomerStatus = "active" | "inactive" | "prospect";
+
+// ---- Customers module: DB row types -----------------------------------------
+
+export interface Customer {
+  id: string;
+  company_id: string;
+  name: string;
+  customer_type: CustomerType;
+  status: CustomerStatus;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface CustomerContact {
+  id: string;
+  customer_id: string;
+  name: string;
+  role: string | null;
+  department: string | null;
+  phone: string;
+  email: string | null;
+  is_primary: boolean;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CustomerSite {
+  id: string;
+  customer_id: string;
+  name: string;
+  address: string | null;
+  city: string | null;
+  gps_coordinates: string | null;
+  landmarks: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+// ---- Customers module: Composite / joined types -----------------------------
+
+export interface CustomerWithContacts extends Customer {
+  contacts: CustomerContact[];
+}
+
+export interface CustomerWithSites extends Customer {
+  sites: CustomerSite[];
+}
+
+export interface CustomerWithDetails extends Customer {
+  contacts: CustomerContact[];
+  sites: CustomerSite[];
+}
+
+// ---- Customers module: DTOs / payloads --------------------------------------
+
+export interface CreateCustomerPayload {
+  name: string;
+  customer_type?: CustomerType;
+  status?: CustomerStatus;
+  phone?: string;
+  email?: string;
+  address?: string;
+  notes?: string;
+}
+
+export interface UpdateCustomerPayload {
+  name?: string;
+  customer_type?: CustomerType;
+  status?: CustomerStatus;
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+  notes?: string | null;
+}
+
+export interface CreateCustomerContactPayload {
+  name: string;
+  phone: string;
+  role?: string;
+  department?: string;
+  email?: string;
+  is_primary?: boolean;
+  notes?: string;
+}
+
+export interface UpdateCustomerContactPayload {
+  name?: string;
+  phone?: string;
+  role?: string | null;
+  department?: string | null;
+  email?: string | null;
+  is_primary?: boolean;
+  notes?: string | null;
+}
+
+export interface CreateCustomerSitePayload {
+  name: string;
+  address?: string;
+  city?: string;
+  gps_coordinates?: string;
+  landmarks?: string;
+  notes?: string;
+}
+
+export interface UpdateCustomerSitePayload {
+  name?: string;
+  address?: string | null;
+  city?: string | null;
+  gps_coordinates?: string | null;
+  landmarks?: string | null;
+  notes?: string | null;
+}

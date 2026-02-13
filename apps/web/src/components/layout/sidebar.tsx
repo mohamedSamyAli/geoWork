@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSession, useMyProfile, useSignOutMutation } from "@repo/api-client";
-import { Loader2, LogOut, Wrench, Truck, Users, HardHat, ChevronLeft, ChevronRight } from "lucide-react";
+import { Loader2, LogOut, Wrench, Truck, Users, HardHat, Building2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavigationGroup, type NavGroup } from "./navigation-group";
 import * as React from "react";
@@ -21,6 +21,11 @@ const navGroups: NavGroup[] = [
     label: "Workers",
     to: "/workers",
     icon: HardHat,
+  },
+  {
+    label: "Customers",
+    to: "/customers",
+    icon: Building2,
   },
 ] as const;
 
